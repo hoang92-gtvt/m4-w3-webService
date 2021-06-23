@@ -1,5 +1,7 @@
 package config;
 
+import formatter.CategoryFormatter;
+import logger.MyLogger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -7,8 +9,10 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -22,6 +26,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import service.category.CategoryService;
+import service.category.ICategoryService;
 import service.customer.CustomerService;
 import service.customer.ICustomerService;
 
@@ -35,7 +41,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableJpaRepositories("repository")
 @ComponentScan("controller")
+
+
 @EnableSpringDataWebSupport
+
+@EnableAspectJAutoProxy
 
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
@@ -74,6 +84,8 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
 
     }
+
+
 
 
     //Cấu hình ORM của JPA
@@ -126,9 +138,28 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     public ICustomerService customerService(){
         return new CustomerService();
     }
+    @Bean
+    public ICategoryService categoryService(){
+        return new CategoryService();
+    }
+
+//Aspect
+    @Bean
+    public MyLogger myLogger(){
+        return new MyLogger();
+    }
+// cau hinh fomater
+    @Override
+    public void addFormatters(FormatterRegistry registry){
+
+        ICategoryService  iCategoryService=applicationContext.getBean(CategoryService.class);
+        registry.addFormatter(new CategoryFormatter(iCategoryService));
 
 
 
+
+
+}
 
 }
 

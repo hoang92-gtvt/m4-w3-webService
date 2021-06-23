@@ -11,9 +11,13 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    public Customer(String firstName, String lastName) {
+    private Category category;
+
+    public Customer(Long id, String firstName, String lastName, Category category) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.category = category;
     }
 
     public Customer() {
@@ -43,4 +47,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
