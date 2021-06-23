@@ -1,3 +1,15 @@
+controller/CustomerController.java
+ controller.CustomerController
+model/Customer.java
+ model.Customer
+repository/ICustomerRepository.java
+ repository.ICustomerRepository
+service/customer/ICustomerService.java
+ service.customer.ICustomerService
+service/IGenaralService.java
+ service.IGenaralService
+service/customer/CustomerService.java
+ service.customer.CustomerService
 config/AppConfig.java
  config.AppConfig
 config/AppInit.java

@@ -22,6 +22,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import service.customer.CustomerService;
+import service.customer.ICustomerService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -89,7 +91,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware{
         em.setJpaProperties(additionalProperties());
         return em;
     }
-
+// Cau hinh ORM
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -113,4 +115,11 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware{
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         return properties;
     }
+
+//Beam doi tuong
+    @Bean
+    public ICustomerService customerService(){
+        return new CustomerService();
+    }
+
 }
