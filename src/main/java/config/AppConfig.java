@@ -37,7 +37,7 @@ import java.util.Properties;
 @ComponentScan("controller")
 @EnableSpringDataWebSupport
 
-public class AppConfig implements WebMvcConfigurer, ApplicationContextAware{
+public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
@@ -71,9 +71,12 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware{
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
+
+
     }
 
-    //Cấu hình JPA
+
+    //Cấu hình ORM của JPA
     @Bean
     @Qualifier(value = "entityManager")
     public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
@@ -84,19 +87,19 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware{
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("com.codegym.cms.model");
+        em.setPackagesToScan("model");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());
         return em;
     }
-// Cau hinh ORM
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/WebService");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/webservice");
         dataSource.setUsername("root");
         dataSource.setPassword("123456");
         return dataSource;
@@ -114,12 +117,18 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware{
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         return properties;
+
+
     }
 
-//Beam doi tuong
+//tao doi tuong tiem
     @Bean
     public ICustomerService customerService(){
         return new CustomerService();
     }
 
+
+
+
 }
+

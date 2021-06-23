@@ -17,15 +17,35 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-beans', version: '5.3.2'
     compile group: 'org.springframework', name: 'spring-web', version: '5.3.2'
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.3.2'
+
+//Thyeme
     compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
     compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.2'
+
+//UP_FILE
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
+//ORM
+
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.3.0.Final'
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.3.0.Final'
     compile group: 'org.springframework', name: 'spring-orm', version: '5.3.2'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
     compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.4.2'
-    compile group: 'org.springframework', name: 'spring-tx', version: '5.3.2'
+
+    //validate
+    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.10.Final'
+
+    //AOP
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.5'
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.5'
+    compile group: 'org.springframework', name: 'spring-aop', version: '4.3.17.RELEASE'
+
+    //APi
+    //web serivce
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.1'
 }
 
 test {

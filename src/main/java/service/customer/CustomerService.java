@@ -7,6 +7,7 @@ import repository.ICustomerRepository;
 import java.util.Optional;
 
 public class CustomerService implements ICustomerService{
+
     @Autowired
     ICustomerRepository customerRepository;
 
@@ -19,6 +20,7 @@ public class CustomerService implements ICustomerService{
     @Override
     public Optional<Customer> findById(Long id) {
         return customerRepository.findById(id);
+
     }
 
     @Override
@@ -28,7 +30,6 @@ public class CustomerService implements ICustomerService{
 
     @Override
     public void remove(Long id) {
-        Optional<Customer> customer =  findById(id);
-        customerRepository.delete(customer);
+        customerRepository.deleteById(id);
     }
 }

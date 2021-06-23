@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ICustomerRepository extends PagingAndSortingRepository<Customer,Long> {
-    void delete(Optional<Customer> customer);
+
 }

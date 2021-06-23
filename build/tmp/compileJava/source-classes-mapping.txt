@@ -1,16 +1,16 @@
-controller/CustomerController.java
- controller.CustomerController
+config/AppInit.java
+ config.AppInit
 model/Customer.java
  model.Customer
-repository/ICustomerRepository.java
- repository.ICustomerRepository
+controller/CustomerController.java
+ controller.CustomerController
 service/customer/ICustomerService.java
  service.customer.ICustomerService
 service/IGenaralService.java
  service.IGenaralService
+repository/ICustomerRepository.java
+ repository.ICustomerRepository
 service/customer/CustomerService.java
  service.customer.CustomerService
 config/AppConfig.java
  config.AppConfig
-config/AppInit.java
- config.AppInit
