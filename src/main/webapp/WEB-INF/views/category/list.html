@@ -29,10 +29,17 @@
             <td>
                 <a class="deleteCategories" th:href="${c.getId()}">Xoa</a>
             </td>
+            <td><a class="editCategories" th:href="${c.getId()}">Update</a></td>
         </tr>
     </th:block>
     </tbody>
 </table>
+
+<table id="formEdit">
+
+</table>
+
+
 <script type="text/javascript">
 
       function addCategories(){
@@ -78,6 +85,7 @@
               c+= `<tr><td>${taothich[i].id}</td>
                         <td>${taothich[i].name}</td>
                     <td><a class="deleteCategories" href="${taothich[i].id}">Xoa</a></td>
+                    <td><a class="editCategories" href="${taothich[i].id}">Update</a></td>
 
                     </tr>`
             }
@@ -85,6 +93,7 @@
           }
         });
       }
+
 
 
 
@@ -108,6 +117,7 @@
           });
           event.preventDefault();
         //sư kiện nào thực hiện Ajax
+
         $('.deleteCategories').click(function(event){
           //lay id ra
           // let a = document.getElementById("name").value;
@@ -130,10 +140,74 @@
 
           //chặn sự kiện mặc định của thẻ
           event.preventDefault();
+
         });
 
 
-      })
+        $('.editCategories').click(function (event) {
+
+              let b = $(this);
+              let id2 = b.attr("href");
+              //gui request xoa xoa o webservice
+              $.ajax({
+                  //method
+                  type: "GET",
+                  //duong dan cua API
+                  url: "/category/" + id2,
+                  //tai lai du lieu thao tac o tren DOM
+                  success: function (category2){
+                      let content2 = "";
+
+                      content2="<tr><td><input type='text' value='"+ category2.id +"'></td></tr>"+
+                          "<tr><td><input type='text' value='"+ category2.name +"'></td>"
+
+
+                      document.getElementById("formEdit").innerHTML = content2;
+                  }
+              });
+
+              //tai lai du lieu
+
+              //chặn sự kiện mặc định của thẻ
+              event.preventDefault();
+          });
+
+
+
+
+      });
+
+      //
+      // $(document).ready(function () {
+      //     $('.editCategories').click(function (event2) {
+      //
+      //         let b = $(this);
+      //         let id2 = b.attr("href");
+      //         //gui request xoa xoa o webservice
+      //         $.ajax({
+      //             //method
+      //             type: "GET",
+      //             //duong dan cua API
+      //             url: "/category/" + id2,
+      //             //tai lai du lieu thao tac o tren DOM
+      //             success: function (category){
+      //                 let content2 = "";
+      //
+      //                 content2="<tr><td>${category2.id}</td></tr>"+
+      //                     "<tr><td>${category2.name}</td></tr>"
+      //
+      //
+      //                 document.getElementById("formEdit").innerHTML = content2;
+      //               }
+      //         });
+      //
+      //         //tai lai du lieu
+      //
+      //         //chặn sự kiện mặc định của thẻ
+      //         event2.preventDefault();
+      //     });
+      // })
+
 </script>
 
 </body>
