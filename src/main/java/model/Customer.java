@@ -10,7 +10,7 @@ public class Customer {
     private Long id;
     private String firstName;
     private String lastName;
-
+    @ManyToOne
     private Category category;
 
     public Customer(Long id, String firstName, String lastName, Category category) {

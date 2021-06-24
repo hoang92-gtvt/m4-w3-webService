@@ -1,5 +1,5 @@
-controller/CategoryController.java
- controller.CategoryController
+config/AppConfig.java
+ config.AppConfig
 service/category/ICategoryService.java
  service.category.ICategoryService
 repository/ICategoryRepository.java
@@ -10,21 +10,21 @@ service/IGenaralService.java
  service.IGenaralService
 repository/ICustomerRepository.java
  repository.ICustomerRepository
-logger/MyLogger.java
- logger.MyLogger
-controller/CustomerController.java
- controller.CustomerController
+service/customer/CustomerService.java
+ service.customer.CustomerService
+config/AppInit.java
+ config.AppInit
 model/Customer.java
  model.Customer
 service/category/CategoryService.java
  service.category.CategoryService
 formatter/CategoryFormatter.java
  formatter.CategoryFormatter
-service/customer/CustomerService.java
- service.customer.CustomerService
 model/Category.java
  model.Category
-config/AppConfig.java
- config.AppConfig
-config/AppInit.java
- config.AppInit
+controller/CustomerController.java
+ controller.CustomerController
+logger/MyLogger.java
+ logger.MyLogger
+controller/CategoryController.java
+ controller.CategoryController
