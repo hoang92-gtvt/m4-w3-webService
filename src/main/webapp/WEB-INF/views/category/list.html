@@ -35,9 +35,9 @@
     </tbody>
 </table>
 
-<table id="formEdit">
+<form id="formEdit">
 
-</table>
+</form>
 
 
 <script type="text/javascript">
@@ -76,25 +76,50 @@
       }
 
       function successHandler(){
+          console.log("in ra man hinh ket qua")
         $.ajax({
           type:"GET",
           url: "/category/list",
-          success: function (taothich){
+          success: function (categoryList){
+              console.log("in ra mang mang ", categoryList )
+
             let c = "";
-            for (let i = 0; i < taothich.length; i++) {
-              c+= `<tr><td>${taothich[i].id}</td>
-                        <td>${taothich[i].name}</td>
-                    <td><a class="deleteCategories" href="${taothich[i].id}">Xoa</a></td>
-                    <td><a class="editCategories" href="${taothich[i].id}">Update</a></td>
+            for (let i = 0; i < categoryList.length; i++) {
+              c+= `<tr><td>${categoryList[i].id}</td>
+                        <td>${categoryList[i].name}</td>
+                    <td><a class="deleteCategories" href="${categoryList[i].id}">Xoa</a></td>
+                    <td><a class="editCategories" href="${categoryList[i].id}">Update</a></td>
 
                     </tr>`
             }
             document.getElementById("content").innerHTML = c;
+
           }
         });
       }
 
+        function updateCategory(){
+            let updateId = $('#oldId').val();
+            let updateName =$('#oldName').val();
+            let updateCategory = {
+                id : updateId,
+                name: updateName,
+            };
+            $.ajax({
+                headers:{
+                    'Accept': 'application/json ',
+                    'Content-Type': 'application/json'
+                },
+                type: 'PUT',
+                url: "/category/update/"+updateId,
+                data: JSON.stringify(updateCategory),
+                success: successHandler()
 
+
+            });
+
+
+        }
 
 
       $(document).ready(function () {
@@ -115,7 +140,7 @@
               //chặn sự kiện mặc định của thẻ
               event.preventDefault();
           });
-          event.preventDefault();
+
         //sư kiện nào thực hiện Ajax
 
         $('.deleteCategories').click(function(event){
@@ -158,8 +183,10 @@
                   success: function (category2){
                       let content2 = "";
 
-                      content2="<tr><td><input type='text' value='"+ category2.id +"'></td></tr>"+
-                          "<tr><td><input type='text' value='"+ category2.name +"'></td>"
+                      content2="<h3>Form Edit</h3><table> "+
+                          "<tr><td><input id='oldId' name='id' type='text' value='"+ category2.id +"'disabled></td></tr>"+
+                          "<tr><td><input id='oldName' name='name' type='text' value='"+ category2.name +"'></td>"+
+                          "</table> <button type='submit' onclick='updateCategory()'>Update</button>"
 
 
                       document.getElementById("formEdit").innerHTML = content2;
@@ -173,40 +200,8 @@
           });
 
 
-
-
       });
 
-      //
-      // $(document).ready(function () {
-      //     $('.editCategories').click(function (event2) {
-      //
-      //         let b = $(this);
-      //         let id2 = b.attr("href");
-      //         //gui request xoa xoa o webservice
-      //         $.ajax({
-      //             //method
-      //             type: "GET",
-      //             //duong dan cua API
-      //             url: "/category/" + id2,
-      //             //tai lai du lieu thao tac o tren DOM
-      //             success: function (category){
-      //                 let content2 = "";
-      //
-      //                 content2="<tr><td>${category2.id}</td></tr>"+
-      //                     "<tr><td>${category2.name}</td></tr>"
-      //
-      //
-      //                 document.getElementById("formEdit").innerHTML = content2;
-      //               }
-      //         });
-      //
-      //         //tai lai du lieu
-      //
-      //         //chặn sự kiện mặc định của thẻ
-      //         event2.preventDefault();
-      //     });
-      // })
 
 </script>
 
