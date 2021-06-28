@@ -14,21 +14,20 @@
     <button type="submit" onclick="addCategories()">AddNew</button>
 </form>
 
-<table>
+<table id="content">
     <tr>
         <td>#</td>
         <td>name</td>
         <td>action</td>
+        <td>action2</td>
     </tr>
-    <tbody id="content">
+    <tbody >
 
     <th:block th:each="c:${categories}">
         <tr>
             <td th:text="${c.id}"></td>
             <td th:text="${c.name}"></td>
-            <td>
-                <a class="deleteCategories" th:href="${c.getId()}">Xoa</a>
-            </td>
+            <td><a class="deleteCategories" th:href="${c.getId()}">Xoa</a></td>
             <td><a class="editCategories" th:href="${c.getId()}">Update</a></td>
         </tr>
     </th:block>
@@ -66,7 +65,7 @@
           //tên API
           url:"/category/create",
           //xử lý khi thành công
-          success: successHandler()
+          success: successHandler
           //goi lai danh sach
           //dien lai thong tin vao bang
 
@@ -83,20 +82,36 @@
           success: function (categoryList){
               console.log("in ra mang mang ", categoryList )
 
-            let c = "";
+            let c = "<tr>" +
+                "        <td>#</td>" +
+                "        <td>name</td>" +
+                "        <td>action</td>" +
+                "        <td>action2</td>" +
+                "    </tr>";
             for (let i = 0; i < categoryList.length; i++) {
-              c+= `<tr><td>${categoryList[i].id}</td>
-                        <td>${categoryList[i].name}</td>
-                    <td><a class="deleteCategories" href="${categoryList[i].id}">Xoa</a></td>
-                    <td><a class="editCategories" href="${categoryList[i].id}">Update</a></td>
-
-                    </tr>`
+                    c+= getCategoryList(categoryList[i])
+              // c+= `<tr>
+              //       <td>${categoryList[i].id}</td>
+              //       <td>${categoryList[i].name}</td>
+              //       <td><a class="deleteCategories" th:href="${categoryList[i].id}">Xoa</a></td>
+              //       <td><a class="editCategories" th:href="${categoryList[i].id}">Update</a></td>
+              //       </tr>`
             }
             document.getElementById("content").innerHTML = c;
 
           }
         });
       }
+
+      function getCategoryList(category) {
+          return `<tr >
+                     <td>${category.id}</td>
+                    <td>${category.name}</td>
+                    <td><a class="deleteCategories" href="${category.id}">Xoa</a></td>
+                    <td><a class="editCategories" href="${category.id}">Update</a></td>
+                  </tr>`;
+      }
+
 
         function updateCategory(){
             let updateId = $('#oldId').val();
@@ -113,11 +128,11 @@
                 type: 'PUT',
                 url: "/category/update/"+updateId,
                 data: JSON.stringify(updateCategory),
-                success: successHandler()
-
+                success: successHandler
 
             });
 
+            event.preventDefault();
 
         }
 

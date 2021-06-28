@@ -1,12 +1,15 @@
 package controller;
 
 
+import model.Category;
 import model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import service.category.ICategoryService;
 import service.customer.ICustomerService;
 
 import java.util.List;
@@ -14,11 +17,35 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/customers")
 public class CustomerController {
 
     @Autowired
     private ICustomerService customerService;
+
+    @Autowired
+    private ICategoryService categoryService;
+
+
+    @ModelAttribute("categories")
+    public List<Category> findAllCategory(){
+        List<Category> categories = (List<Category>) categoryService.findAll();
+        return categories;
+    }
+
+    public Category getCategoryById(Long id){
+        return categoryService.findById(id).get();
+    }
+
+    @GetMapping("/list")
+    public ModelAndView showList(){
+        ModelAndView mav = new ModelAndView("/customers/list");
+        List<Customer> customers= (List<Customer>) customerService.findAll();
+        mav.addObject("customer", new Customer());
+        mav.addObject("customers", customers);
+
+        return mav;
+    }
 
     @GetMapping
     public ResponseEntity<Iterable<Customer>> findAllCustomer() {
@@ -38,8 +65,12 @@ public class CustomerController {
         return new ResponseEntity<>(customerOptional.get(), HttpStatus.OK);
     }
 
+
+
+
     @PostMapping("/create")
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
+
         return new ResponseEntity<>(customerService.save(customer), HttpStatus.CREATED);
     }
 

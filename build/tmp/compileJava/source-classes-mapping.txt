@@ -22,9 +22,9 @@ formatter/CategoryFormatter.java
  formatter.CategoryFormatter
 model/Category.java
  model.Category
-controller/CustomerController.java
- controller.CustomerController
-logger/MyLogger.java
- logger.MyLogger
 controller/CategoryController.java
  controller.CategoryController
+logger/MyLogger.java
+ logger.MyLogger
+controller/CustomerController.java
+ controller.CustomerController

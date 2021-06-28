@@ -4,34 +4,62 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript">
 
-        function(
-
-    </script>
 
 
 </head>
 <body>
 
-<form id="data" >
+<form th:action="@{/customers/create}"  id="formAddCustomer">
+    <table id ="newCustomer" th:object="${customer}">
+        <tr>
+            <input  type="text" id="firstName" name ="firstName" placeholder="firstName" >
+        </tr>
+        <tr><input  type="text" id="lastName"  name ="lastName" placeholder="lastName" ></tr>
+        <tr>
+
+            <select name="category">
+                <th:block th:each="c:${categories}">
+                    <option th:value="${c.id}" th:text="${c.name}"></option>
+                </th:block>
+            </select>
+            <button type="submit">Add new Customer</button>
+
+        </tr>
+
+    </table>
+</form>
+
 
     <table>
         <tr>
-            <td><input type="text"></td>
+            <td >Id</td>
+            <td >FirstName</td>
+            <td >LastName</td>
+            <td >Category</td>
+            <td >Edit</td>
+            <td >Delete</td>
+
         </tr>
+        <th:block th:each="c:${customers}">
+
+            <tr>
+                <td th:text="${c.id}"></td>
+                <td th:text="${c.firstName}"></td>
+                <td th:text="${c.lastName}"></td>
+                <td th:text="${c.category.name}"></td>
+<!--                <td ><a th:href="">Edit</a></td>-->
+<!--                <td ><a th:href="">Delete</a></td>-->
+
+            </tr>
+
+        </th:block>
 
     </table>
 
 
-
-
-
-
-
-
-</form>
 <script>
+
 
 </script>
 
