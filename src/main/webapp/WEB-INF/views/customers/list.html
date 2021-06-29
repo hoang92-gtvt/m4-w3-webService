@@ -10,28 +10,27 @@
 </head>
 <body>
 
-<form th:action="@{/customers/create}"  id="formAddCustomer">
-    <table id ="newCustomer" th:object="${customer}">
+<form >
+<table>
         <tr>
             <input  type="text" id="firstName" name ="firstName" placeholder="firstName" >
-        </tr>
-        <tr><input  type="text" id="lastName"  name ="lastName" placeholder="lastName" ></tr>
-        <tr>
 
-            <select name="category">
+            <input  type="text" id="lastName"  name ="lastName" placeholder="lastName" >
+
+
+            <select  id ="category_id" name="category">
                 <th:block th:each="c:${categories}">
                     <option th:value="${c.id}" th:text="${c.name}"></option>
                 </th:block>
             </select>
-            <button type="submit">Add new Customer</button>
+            <button type="submit" onclick="addCustomer()">Add new Customer</button>
 
         </tr>
 
-    </table>
+</table>
 </form>
 
-
-    <table>
+    <table id ="listCustomer">
         <tr>
             <td >Id</td>
             <td >FirstName</td>
@@ -48,8 +47,8 @@
                 <td th:text="${c.firstName}"></td>
                 <td th:text="${c.lastName}"></td>
                 <td th:text="${c.category.name}"></td>
-<!--                <td ><a th:href="">Edit</a></td>-->
-<!--                <td ><a th:href="">Delete</a></td>-->
+                <td><a class="deleteCustomer" th:href="${c.id}">Xoa</a></td>
+                <td><a class="editCustomer" th:href="${c.id}">Update</a></td>
 
             </tr>
 
@@ -59,6 +58,78 @@
 
 
 <script>
+   function addCustomer(){
+        let firstName1 = $('#firstName').val();
+        let lastName1 = $('#lastName').val();
+        let category_id = $('#category_id').val();
+
+        let customer = {
+            firstName: firstName1,
+            lastName: lastName1,
+            category: {
+                id: category_id
+            }
+        }
+        console.log(customer)
+        $.ajax({
+
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST" ,
+            data: JSON.stringify(customer),
+            url: "/customers/create" ,
+
+            success: successHandler3
+
+        });
+
+       event.preventDefault();
+    }
+
+   function successHandler3(){
+       console.log("in ra man hinh ket qua")
+       $.ajax({
+           type:"GET",
+           url: "/customers",
+           success: function (customerList){
+               console.log("in ra mang mang ", customerList )
+
+               let c = `<td >Id</td>
+                         <td >FirstName</td>
+                        <td >LastName</td>
+                        <td >Category</td>
+                        <td >Edit</td>
+                        <td >Delete</td>`
+               for (let i = 0; i < customerList.length; i++) {
+                   c+= getCustomerList(customerList[i])
+                   // c+= `<tr>
+                   //       <td>${categoryList[i].id}</td>
+                   //       <td>${categoryList[i].name}</td>
+                   //       <td><a class="deleteCategories" th:href="${categoryList[i].id}">Xoa</a></td>
+                   //       <td><a class="editCategories" th:href="${categoryList[i].id}">Update</a></td>
+                   //       </tr>`
+               }
+               document.getElementById("listCustomer").innerHTML = c;
+
+           }
+       });
+   }
+
+
+   function getCustomerList(customer) {
+       return `<tr >
+                     <td>${customer.id}</td>
+                    <td>${customer.firstName}</td>
+                    <td>${customer.lastName}</td>
+                    <td>${customer.category.name}</td>
+
+                    <td><a class="deleteCustomer" href="${customer.id}">Xoa</a></td>
+                    <td><a class="editCustomer" href="${customer.id}">Update</a></td>
+                  </tr>`;
+   }
+
 
 
 </script>
